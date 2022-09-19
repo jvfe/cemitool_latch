@@ -2,6 +2,7 @@ import subprocess
 from pathlib import Path
 
 from latch import medium_task, message, workflow
+from latch.resources.launch_plan import LaunchPlan
 from latch.types import LatchDir, LatchFile
 
 from .docs import metadata
@@ -89,3 +90,16 @@ def cemitool(
         pathways=pathways,
         interaction_table=interaction_table,
     )
+
+
+LaunchPlan(
+    cemitool,
+    "Default expression data",
+    {
+        "sample_name": "default_expr",
+        "expression_data": "s3://latch-public/test-data/4318/cemitool_expression_data.csv",
+        "sample_annotation": "s3://latch-public/test-data/4318/cemitool_sample_annotation.csv",
+        "pathways": "s3://latch-public/test-data/4318/cemitool_pathways.gmt",
+        "interaction_table": "s3://latch-public/test-data/4318/cemitool_interactions.csv",
+    },
+)
